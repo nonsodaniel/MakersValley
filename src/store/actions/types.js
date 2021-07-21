@@ -9,6 +9,7 @@ export const PREV_PAGE = "PREV_PAGE";
 export const NEXT_PAGE = "NEXT_PAGE";
 export const SORT_PRIORITY = "SORT_PRIORITY";
 export const DELETE_TODO = "DELETE_TODO";
+export const EDIT_TODO = "EDIT_TODO";
 
 
 

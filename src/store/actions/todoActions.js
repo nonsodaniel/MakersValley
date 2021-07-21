@@ -9,6 +9,7 @@ import {
   NEXT_PAGE,
   PREV_PAGE,
   SORT_PRIORITY,
+  EDIT_TODO,
   DELETE_TODO,
 } from "./types";
 
@@ -33,6 +34,16 @@ export const getTodos = () => {
     }
   };
 };
+
+export const handleEditTodo = (id) => {
+  return (dispatch) => {
+    dispatch({
+      type: EDIT_TODO,
+      payload: { id },
+    });
+    getTodos();
+  };
+}; 
 
 export const handleDeleteTodo = (id) => {
   return (dispatch) => {

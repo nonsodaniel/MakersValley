@@ -8,6 +8,7 @@ import {
   PREV_PAGE,
   NEXT_PAGE,
   SORT_PRIORITY,
+  EDIT_TODO,
   DELETE_TODO,
 } from "../actions/types";
 
@@ -43,21 +44,25 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
         totalPages: Math.ceil(data.length / state.pageLength),
         pageData: paginate(data, state.currentPage, state.pageLength),
       };
-      case DELETE_TODO:
-        const { id } = actions.payload;
-          let isDelete = window.confirm("Delete this record?")
-          if(!isDelete) return null;
-              let newData = state.allTodos.filter(data_ => data_.id !== id)
-              localStorage.setItem('todos', JSON.stringify(newData))
-              return {
-                ...state,
-                search: false,
-                currentPage: 1,
-                searchValue: "",
-                totalPages: Math.ceil(newData.length / state.pageLength),
-                data: newData,
-                pageData: paginate(newData, 1, state.pageLength),
-              };
+    case DELETE_TODO:
+      const { id } = actions.payload;
+      let isDelete = window.confirm("Delete this record?");
+      if (!isDelete) return null;
+      let newData = state.allTodos.filter((data_) => data_.id !== id);
+      localStorage.setItem("todos", JSON.stringify(newData));
+      return {
+        ...state,
+        search: false,
+        currentPage: 1,
+        searchValue: "",
+        totalPages: Math.ceil(newData.length / state.pageLength),
+        data: newData,
+        pageData: paginate(newData, 1, state.pageLength),
+      };
+    // case EDIT_TODO:
+    //   const { id } = actions.payload;
+    //     let editData = profile.find(data => data.id === id)
+    //     props.openModal(editData)
     case TODO_FETCH_FAILED:
       return {
         ...state,
@@ -105,7 +110,7 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
         activePriority === "All"
           ? state.allTodos
           : state.allTodos.filter(({ priority }) =>
-                  priority.includes(activePriority)
+              priority.includes(activePriority)
             );
       return {
         ...state,

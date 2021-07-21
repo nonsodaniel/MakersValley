@@ -14,8 +14,15 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    boxShadow: `rgba(0, 0, 0, 0.25) 0px 12px 15px 0px`,
+    background: "white",
+    border: "none",
   },
 };
+
+
+
+
 
 if (typeof(window) !== 'undefined') {
     Modal.setAppElement('body')
@@ -88,7 +95,7 @@ const AddModal = (props) => {
       >
         <div className="header">
           <span onClick={closeModal} className="text-right pointer">
-            <i class="far fa-times-circle"></i>
+            <i className="far fa-times-circle"></i>
           </span>
           <h2 className="text-center">Creat a Todo</h2>
         </div>
@@ -139,14 +146,14 @@ const AddModal = (props) => {
                   onChange={({ target }) => setCategory(target.value)}
                 >
                   <option defaultValue="All">Category</option>
-                        {categorList.map((catgry) => {
-                          let { id, value } = catgry;
-                          return (
-                            <option key={id} value={value}>
-                              {value}
-                            </option>
-                          );
-                        })}
+                  {categorList.map((catgry) => {
+                    let { id, value } = catgry;
+                    return (
+                      <option key={id} value={value}>
+                        {value}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             </div>
@@ -158,6 +165,7 @@ const AddModal = (props) => {
             </div>
           </form>
         </div>
+       
       </Modal>
     </div>
   );

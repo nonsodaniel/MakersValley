@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/todoActions";
 
 const TodoList = ({ todos }) => {
@@ -9,6 +10,21 @@ const TodoList = ({ todos }) => {
   const deleteTodo = ({ target: { id } }) => {
     dispatch(actions.handleDeleteTodo(id));
   };
+
+  const str = `  Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
+  ipsum dolores quod, iste corporis rem, voluptatem impedit eius`;
+  // const desc =
+  //   str.length > 130
+  //     ? str +
+  //       (
+  //         <b>
+  //           <Link to="#" title={str}>
+  //             See more
+  //           </Link>
+  //         </b>
+  //       )
+  //     : str;
+
   return (
     <div className="todo" key={id}>
       <div className="card todo-card">
@@ -21,6 +37,7 @@ const TodoList = ({ todos }) => {
           </div>
           <h3>{title}</h3>
           <p>{description}</p>
+          {/* <p title={str}>{desc}</p> */}
           <div className="category-status">
             <span className="category">{category}</span>
             <span className="status">{status}</span>
@@ -37,7 +54,7 @@ const TodoList = ({ todos }) => {
       </div>
     </div>
   );
-};
+};;
 
 TodoList.propTypes = {
   todos: PropTypes.shape({

@@ -1,35 +1,38 @@
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions/todoActions";
 import "./pagination.scss";
 
 const Pagination = (props) => {
+  const dispatch = useDispatch();
+  const select = useSelector((state) => state);
+  const { currentPage, totalPages, allTodos } = select.todos;
   const prevBtn = () => {
-    props.handlePrevBtn()
-
+    dispatch(actions.handlePrevBtn());
   };
   const nextBtn = () => {
-    props.handleNextBtn()
+    dispatch(actions.handleNextBtn());
   };
+
   return (
     <div className="pagination" data-testid="pagination">
-      {props.allTodos.length > 0 && (
+      {allTodos.length > 0 && (
         <div className="pagination-wrap">
           <button
             className="pagination-text pointer"
             data-testid="btn-prev"
-            disabled={props.currentPage === 1}
+            disabled={currentPage === 1}
             onClick={prevBtn}
           >
             Previous
           </button>
           <span>
-            <button className="page-btn">{props.currentPage}</button> of{" "}
-            {props.totalPages}{" "}
+            <button className="page-btn">{currentPage}</button> of{" "}
+            {totalPages}{" "}
           </span>
           <button
             className="pagination-text pointer"
             data-testid="btn-next"
-            disabled={props.currentPage === props.totalpages}
+            disabled={currentPage === totalPages}
             onClick={nextBtn}
           >
             Next
@@ -40,12 +43,12 @@ const Pagination = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  const { currentPage, totalPages, allTodos } = state.todos;
-  return {
-    allTodos,
-    currentPage,
-    totalPages,
-  };
-};
-export default connect(mapStateToProps, actions)(Pagination);
+// const mapStateToProps = (state) => {
+//   const { currentPage, totalPages, allTodos } = state.todos;
+//   return {
+//     allTodos,
+//     currentPage,
+//     totalPages,
+//   };
+// };
+export default Pagination;
