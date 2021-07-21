@@ -1,4 +1,4 @@
-@import "../container/variables.scss";
+@import "../container/variables.css";
 
 .todos-wrap {
   .todos {
@@ -24,6 +24,11 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 1rem;
+      .priority .text{
+        font-size: 13px;
+        font-weight: 600;
+        color: #7888fc;
+      }
     }
     .category-status {
       display: flex;
@@ -53,18 +58,21 @@
     }
     .actions {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: flex-end;
       background: #f9f9f9;
       padding: 0.7rem 1em;
       font-size: 12px;
       span{
         font-size: 16px;
+        font-size: 16px;
+        margin-left: 13px;
+        cursor: pointer;
       }
       .edit{
         color: #556ee6;
       }
       .delete{
-        color: red;
+        color: #e30808;
       }
      
     }
@@ -108,6 +116,11 @@
   .no-todos {
     margin-bottom: 3rem;
   }
+  .btn-wrap{
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
 
   @media (max-width: 768px) {
     .todos {

@@ -6,6 +6,7 @@ import TodoList from "./TodoList";
 import "./todos.scss";
 import loadingImg from "../assets/loading.gif";
 import networkImg from "../assets/no-connection.png";
+import AddTodo from "./AddTodo";
 
 const Todos = (props) => {
   let { getTodos } = props;
@@ -16,6 +17,7 @@ const Todos = (props) => {
   let { errorMessage } = props;
   return (
     <div className="todos-wrap" data-testid="todos-wrap">
+      <AddTodo />
       {isDataLoaded && (
         <h5 className="todo-header">{props && props.currentCategory} Todos</h5>
       )}

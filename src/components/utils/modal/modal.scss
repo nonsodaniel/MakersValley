@@ -1,0 +1,17 @@
+.modal{
+.header{
+  display: flex;
+  justify-content: space-between;
+}
+
+}
+.group-1{
+  display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1rem;
+}
+
+
+.ReactModal__Content{
+  width: 30%;
+}

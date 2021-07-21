@@ -6,7 +6,9 @@ const TodoList = ({ todos }) => {
       <div className="card todo-card">
         <div className="todo-details">
           <div className="priority-date">
-            <span className="priority">Priority: Important</span>
+            <span className="priority">
+              Priority: <b className="text">Important</b>{" "}
+            </span>
             <span className="date">{new Date().toDateString()}</span>
           </div>
           <h3>{name}</h3>
