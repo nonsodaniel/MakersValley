@@ -1,4 +1,3 @@
-import { SORT_ALPHABET } from "../actions/types";
 import {
   START_FETCH_TODO,
   SET_TODO_DATA,
@@ -7,7 +6,9 @@ import {
   SORT_CATEGORY,
   SORT_DATE,
   PREV_PAGE,
-  NEXT_PAGE
+  NEXT_PAGE,
+  SORT_PRIORITY,
+  DELETE_TODO,
 } from "../actions/types";
 
 const INTIAL_STATE = {
@@ -23,6 +24,7 @@ const INTIAL_STATE = {
   pageLength: 6,
   pageData: [],
   currentCategory: "All",
+  currentPriority: "All",
 };
 
 export  const reducer = (state = INTIAL_STATE, actions) => {
@@ -31,7 +33,6 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       return { ...state, loading: true };
     case SET_TODO_DATA:
       let data = actions.payload.todos;
-      console.log("data", data)
       return {
         ...state,
         error: false,
@@ -42,6 +43,21 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
         totalPages: Math.ceil(data.length / state.pageLength),
         pageData: paginate(data, state.currentPage, state.pageLength),
       };
+      case DELETE_TODO:
+        const { id } = actions.payload;
+          let isDelete = window.confirm("Delete this record?")
+          if(!isDelete) return null;
+              let newData = state.allTodos.filter(data_ => data_.id !== id)
+              localStorage.setItem('todos', JSON.stringify(newData))
+              return {
+                ...state,
+                search: false,
+                currentPage: 1,
+                searchValue: "",
+                totalPages: Math.ceil(newData.length / state.pageLength),
+                data: newData,
+                pageData: paginate(newData, 1, state.pageLength),
+              };
     case TODO_FETCH_FAILED:
       return {
         ...state,
@@ -54,7 +70,7 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       let searchData =
         searchValue === ""
           ? state.allTodos
-          : state.allTodos.filter(({ name }) => name.includes(searchValue));
+          : state.allTodos.filter(({ title }) => title.includes(searchValue));
       return {
         ...state,
         search: true,
@@ -83,25 +99,25 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
         currentCategory: activeCategory,
         pageData: paginate(sortCatData, 1, state.pageLength),
       };
-    case SORT_ALPHABET:
-      const { activeOrder } = actions.payload;
-      let sortAlphabetData =
-        activeOrder === "default"
+    case SORT_PRIORITY:
+      const { activePriority } = actions.payload;
+      let sortPrtyData =
+        activePriority === "All"
           ? state.allTodos
-          : activeOrder === "asc"
-          ? [...state.allTodos].sort((a, b) => a.name.localeCompare(b.name))
-          : activeOrder === "desc"
-          ? [...state.allTodos].sort((a, b) => b.name.localeCompare(a.name))
-          : null;
-          return {
-            ...state,
-            search: false,
-            currentPage: 1,
-            searchValue: "",
-            data: sortAlphabetData,
-            activeOrder: activeOrder,
-            pageData: paginate(sortAlphabetData, 1, state.pageLength),
-          };
+          : state.allTodos.filter(({ priority }) =>
+                  priority.includes(activePriority)
+            );
+      return {
+        ...state,
+        search: false,
+        currentPage: 1,
+        searchValue: "",
+        data: sortPrtyData,
+        totalPages: Math.ceil(sortPrtyData.length / state.pageLength),
+        activePriority: activePriority,
+        currentPriority: activePriority,
+        pageData: paginate(sortPrtyData, 1, state.pageLength),
+      };
     case SORT_DATE:
       const { activeDate } = actions.payload;
       let sortDateData =
@@ -119,29 +135,29 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       return {
         ...state,
         search: false,
-        currentPage: 1 ,
+        currentPage: 1,
         searchValue: "",
         data: sortDateData,
         activeOrder: activeDate,
         pageData: paginate(sortDateData, 1, state.pageLength),
       };
 
-      case PREV_PAGE:
-        let prevPage = state.currentPage - 1
-        return {
-          ...state,
-          currentPage: prevPage,
-          pageData: paginate(state.data, prevPage, state.pageLength),
-        };
-   
-      case NEXT_PAGE:
-          let nextPage = state.currentPage + 1
-        return {
-          ...state,
-          currentPage: nextPage,
-          pageData: paginate(state.data, nextPage, state.pageLength),
-        };
-      default:
+    case PREV_PAGE:
+      let prevPage = state.currentPage - 1;
+      return {
+        ...state,
+        currentPage: prevPage,
+        pageData: paginate(state.data, prevPage, state.pageLength),
+      };
+
+    case NEXT_PAGE:
+      let nextPage = state.currentPage + 1;
+      return {
+        ...state,
+        currentPage: nextPage,
+        pageData: paginate(state.data, nextPage, state.pageLength),
+      };
+    default:
       return { ...state };
   }
 };

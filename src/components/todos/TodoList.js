@@ -1,29 +1,37 @@
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import * as actions from "../../store/actions/todoActions";
+
 const TodoList = ({ todos }) => {
-  const { name, description, created } = todos;
+  const { id, title, description, category, priority, status } = todos;
+  const dispatch = useDispatch();
+
+  const deleteTodo = ({ target: { id } }) => {
+    dispatch(actions.handleDeleteTodo(id));
+  };
   return (
-    <div className="todo" key={created}>
+    <div className="todo" key={id}>
       <div className="card todo-card">
         <div className="todo-details">
           <div className="priority-date">
             <span className="priority">
-              Priority: <b className="text">Important</b>{" "}
+              Priority: <b className="text">{priority}</b>{" "}
             </span>
             <span className="date">{new Date().toDateString()}</span>
           </div>
-          <h3>{name}</h3>
+          <h3>{title}</h3>
           <p>{description}</p>
           <div className="category-status">
-            <span className="category">Education</span>
-            <span className="status">Pending</span>
+            <span className="category">{category}</span>
+            <span className="status">{status}</span>
           </div>
         </div>
         <div className="actions">
           <span>
             <i className="fas fa-edit edit"></i>
           </span>
-          <span>
-            <i className="fas fa-trash-alt delete"></i>
+          <span onClick={deleteTodo} id={id}>
+            <i className="fas fa-trash-alt delete" id={id}></i>
           </span>
         </div>
       </div>
@@ -33,9 +41,10 @@ const TodoList = ({ todos }) => {
 
 TodoList.propTypes = {
   todos: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    priority: PropTypes.string.isRequired,
     created: PropTypes.string.isRequired,
   }),
 };

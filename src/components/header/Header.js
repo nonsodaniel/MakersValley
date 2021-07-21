@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 import "./header.scss";
+import { categorList, priorityList } from "../utils/modal/db";
 
 const Header = (props) => {
   const dispatch = useDispatch();
@@ -15,8 +16,8 @@ const Header = (props) => {
   const sortCategory = ({ target }) => {
     dispatch(actions.handleSortCategory(target.value));
   };
-  const sortAlphabetically = ({ target }) => {
-    dispatch(actions.handleSortAlphabet(target.value));
+  const sortPriority = ({ target }) => {
+    dispatch(actions.handleSortPriority(target.value));
   };
   const sortDate = ({ target }) => {
     dispatch(actions.handleSortDate(target.value));
@@ -53,25 +54,36 @@ const Header = (props) => {
                 onChange={sortCategory}
                 data-testid="sort-category"
               >
-                <option defaultValue="All">All</option>
-                <option value="Health">Health</option>
-                <option value="E-commerce">E-commerce</option>
-                <option value="Education">Education</option>
+                <option value="All"> Category</option>
+                {categorList.map((catgry) => {
+                  let { id, value } = catgry;
+                  return (
+                    <option key={id} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="select-wrap sort-items">
               <label htmlFor="sortOrder" className="sort-label">
-                Order
+                Priority
               </label>
               <select
                 className="select-item"
                 aria-label="select"
-                onChange={sortAlphabetically}
+                onChange={sortPriority}
                 data-testid="sort-order"
               >
-                <option value="default">Default</option>
-                <option value="asc">Ascending</option>
-                <option value="desc">Descending</option>
+                <option value="All">Select Priority</option>
+                {priorityList.map((prty) => {
+                  let { id, value } = prty;
+                  return (
+                    <option key={id} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
               </select>
             </div>
             <div className="select-wrap sort-items">
@@ -84,6 +96,9 @@ const Header = (props) => {
                 onChange={sortDate}
                 data-testid="sort-date"
               >
+                {
+
+                }
                 <option value="default">Default</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>

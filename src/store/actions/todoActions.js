@@ -8,14 +8,15 @@ import {
   SORT_ALPHABET,
   NEXT_PAGE,
   PREV_PAGE,
+  SORT_PRIORITY,
+  DELETE_TODO,
 } from "./types";
 
 export const getTodos = () => {
   return (dispatch) => {
     try {
       dispatch({ type: START_FETCH_TODO });
-      const response = JSON.parse(localStorage.getItem("data"));
-      console.log("response", response);;
+      const response = JSON.parse(localStorage.getItem("todos"));
       let payload = {};
       if (response.length) {
         payload.todos = response;
@@ -33,6 +34,16 @@ export const getTodos = () => {
   };
 };
 
+export const handleDeleteTodo = (id) => {
+  return (dispatch) => {
+    dispatch({
+      type: DELETE_TODO,
+      payload: { id },
+    });
+    getTodos();
+  };
+}; 
+
 export const handleSearchTodo = (searchValue) => {
   return (dispatch) => {
     dispatch({
@@ -46,6 +57,14 @@ export const handleSortCategory = (activeCategory) => {
     dispatch({
       type: SORT_CATEGORY,
       payload: { activeCategory },
+    });
+  };
+};
+export const handleSortPriority = (activePriority) => {
+  return (dispatch) => {
+    dispatch({
+      type: SORT_PRIORITY,
+      payload: { activePriority },
     });
   };
 };

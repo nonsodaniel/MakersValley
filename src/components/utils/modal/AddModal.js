@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import * as actions from "../../../store/actions/todoActions";
 import Modal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
 import { uuid } from "./constants";
+import { categorList, priorityList } from "./db";
 import "./modal.scss";
 
 const customStyles = {
@@ -17,8 +20,9 @@ const customStyles = {
 if (typeof(window) !== 'undefined') {
     Modal.setAppElement('body')
 }
-const AddModal = () => {
-   
+const AddModal = (props) => {
+  const dispatch = useDispatch();
+  const select = useSelector((state) => state);
   const [todos, setTodos] = useState([])
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [title, setTitle] = useState("");
@@ -54,7 +58,8 @@ const AddModal = () => {
         let newData = [...todos, obj]
         setTodos(newData)
         localStorage.setItem("todos",  JSON.stringify(newData))
-        getTodo()
+        dispatch(actions.getTodos());   
+        console.log(props,"props")
       }else{
         localStorage.setItem("todos", JSON.stringify([obj]))
         getTodo()
@@ -82,65 +87,76 @@ const AddModal = () => {
         contentLabel="Example Modal"
       >
         <div className="header">
-        <span onClick={closeModal} className="text-right pointer"><i class="far fa-times-circle"></i></span>
-        <h2 className="text-center">Creat a Todo</h2>
+          <span onClick={closeModal} className="text-right pointer">
+            <i class="far fa-times-circle"></i>
+          </span>
+          <h2 className="text-center">Creat a Todo</h2>
         </div>
         <div className="body">
-            <form>
-              <div className="form-group">
-                <input
-                  type="text"
+          <form>
+            <div className="form-group">
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                placeholder="Todo Title"
+                value={title}
+                onChange={({ target }) => setTitle(target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <textarea
+                className="form-control"
+                id="description"
+                rows="3"
+                placeholder="Type your Todo Description here..."
+                value={description}
+                onChange={({ target }) => setDesc(target.value)}
+              ></textarea>
+            </div>
+            <div className="form-group group-1">
+              <div className="priority">
+                <select
                   className="form-control"
-                  id="title"
-                  placeholder="Todo Title"
-                  value={title}
-                  onChange={({ target }) => setTitle(target.value)}
-                />
+                  id="priority"
+                  onChange={({ target }) => setPrty(target.value)}
+                >
+                  <option defaultValue="All">Select Priority</option>
+                  {priorityList.map((prty) => {
+                    let { id, value } = prty;
+                    return (
+                      <option key={id} value={value}>
+                        {value}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
-              <div className="form-group">
-                <textarea
+              <div className="category">
+                <select
                   className="form-control"
-                  id="description"
-                  rows="3"
-                  placeholder="Type your Todo Description here..."
-                  value={description}
-                  onChange={({ target }) => setDesc(target.value)}
-                ></textarea>
+                  id="exampleFormControlSelect1"
+                  onChange={({ target }) => setCategory(target.value)}
+                >
+                  <option defaultValue="All">Category</option>
+                        {categorList.map((catgry) => {
+                          let { id, value } = catgry;
+                          return (
+                            <option key={id} value={value}>
+                              {value}
+                            </option>
+                          );
+                        })}
+                </select>
               </div>
-              <div className="form-group group-1">
-                <div className="priority">
-                  <select
-                    className="form-control"
-                    id="priority"
-                    onChange={({ target }) => setPrty(target.value)}
-                  >
-                    <option>Priority</option>
-                    <option value="less">Very Important</option>
-                    <option value="very">Very Important</option>
-                    <option value="not">Not important</option>
-                  </select>
-                </div>
-                <div className="category">
-                  <select
-                    className="form-control"
-                    id="exampleFormControlSelect1"
-                    onChange={({ target }) => setCategory(target.value)}
-                  >
-                    <option>Category</option>
-                    <option>Work</option>
-                    <option>Learning</option>
-                    <option>Health</option>
-                    <option>Religion</option>
-                    <option>Entertainment</option>
-                    <option>Relaxation</option>
-                  </select>
-                </div>
-              </div>
+            </div>
 
-              <div className="btn-wrap">
-                <button type="submit" className="btn" onClick={addTodo}>Submit Todo</button>
-              </div>
-            </form>
+            <div className="btn-wrap">
+              <button type="submit" className="btn" onClick={addTodo}>
+                Submit Todo
+              </button>
+            </div>
+          </form>
         </div>
       </Modal>
     </div>
