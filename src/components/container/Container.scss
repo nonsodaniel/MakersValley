@@ -11,3 +11,11 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+@media (max-width: 768px){
+    .container{
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+  
+}
