@@ -48,11 +48,21 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
     let formdata = getFormData();
     if (todoId) {
       dispatch(actions.updateTodo({ ...todo, ...formdata }));
+      resetForm();
       handleClose();
       return;
     }
     dispatch(actions.addTodo(formdata));
+    resetForm();
     handleClose();
+  };
+
+  const resetForm = () => {
+    setTitle("");
+    setDesc("");
+    setPriority("");
+    setCategory("");
+    setStatus("");
   };
   const handleClose = () => {
     onClose();
