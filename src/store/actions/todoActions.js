@@ -13,6 +13,7 @@ import {
   SORT_PRIORITY,
   EDIT_TODO,
   DELETE_TODO,
+  CLEAR_EDIT_TODO,
 } from "./types";
 
 export const getTodos = () => {
@@ -42,7 +43,7 @@ export const addTodo = (todo) => {
   return (dispatch, getState) => {
     const state = getState();
     todo.id = uuid();
-    todo.status = "pending";
+    todo.status = "Pending";
     todo.created = new Date().toISOString();
     const todos = [todo, ...state.todos.allTodos];
     saveToLocalStorage("todos", todos);
@@ -75,14 +76,25 @@ export const handleEditTodo = (editId) => {
     });
   };
 };
-
-export const handleDeleteTodo = (id) => {
+export const clearEditTodo =() =>{
   return (dispatch) => {
     dispatch({
-      type: DELETE_TODO,
-      payload: { id },
+      type: CLEAR_EDIT_TODO,
     });
-    getTodos();
+  };
+}
+
+
+export const handleDeleteTodo = (id) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const todos = [...state.todos.allTodos];
+    let todosLeft = todos.filter((todo) => id !== todo.id);
+    saveToLocalStorage("todos", todosLeft);
+    dispatch({
+      type: SET_TODO_DATA,
+      payload: { todos: todosLeft   },
+    });
   };
 };
 

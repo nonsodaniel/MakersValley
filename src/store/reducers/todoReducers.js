@@ -10,6 +10,7 @@ import {
   SORT_PRIORITY,
   EDIT_TODO,
   DELETE_TODO,
+  CLEAR_EDIT_TODO,
 } from "../actions/types";
 
 const INTIAL_STATE = {
@@ -46,7 +47,6 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       };
     case DELETE_TODO:
       const { id } = actions.payload;
-      console.log(id, state.allTodos);
       let newData = state.allTodos.filter((data_) => data_.id !== id);
       console.log(newData);
       localStorage.setItem("todos", JSON.stringify(newData));
@@ -65,6 +65,11 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       return {
         ...state,
         editData,
+      };
+    case CLEAR_EDIT_TODO:
+      return {
+        ...state,
+        editData: null,
       };
     case TODO_FETCH_FAILED:
       return {

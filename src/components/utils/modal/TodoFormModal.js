@@ -23,15 +23,14 @@ if (typeof window !== "undefined") {
   Modal.setAppElement("body");
 }
 
-const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
-  console.log("todo", todo);
+const TodoFormModal = ({ todo, isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState(todo.title || "");
-  const [description, setDesc] = useState(todo.description || "");
-  const [priority, setPriority] = useState(todo.priority || "");
-  const [category, setCategory] = useState(todo.category || "");
-  const [status, setStatus] = useState(todo.category || "");
-  let todoId = todo.id;
+  const [title, setTitle] = useState("");
+  const [description, setDesc] = useState("");
+  const [priority, setPriority] = useState("");
+  const [category, setCategory] = useState("");
+  const [status, setStatus] = useState("");
+  let todoId = todo?.id;
 
   const getFormData = () => {
     return {
@@ -64,12 +63,27 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
     setCategory("");
     setStatus("");
   };
+
   const handleClose = () => {
     onClose();
   };
-  // useEffect(() => {
-  //   setTodo(editData);
-  // }, [editData]);
+
+  const setEditData = (todo) => {
+    if (todo) {
+      setTitle(todo.title || "");
+      setDesc(todo.description || "");
+      setPriority(todo.priority || "");
+      setCategory(todo.category || "");
+      setStatus(todo.status || "");
+    } else {
+      resetForm();
+    }
+  };
+
+  useEffect(() => {
+    setEditData(todo);
+  }, [todo, dispatch]);
+
   return (
     <div className="todo-modal">
       <Modal
@@ -116,6 +130,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                 <select
                   className="form-control"
                   id="priority"
+                  value={priority}
                   onChange={({ target }) => setPriority(target.value)}
                   required={true}
                 >
@@ -134,6 +149,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                 <select
                   className="form-control"
                   id="category"
+                  value={category}
                   onChange={({ target }) => setCategory(target.value)}
                   required={true}
                 >
@@ -153,12 +169,12 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
             {todoId && (
               <select
                 className="form-control status-select"
-                id="status"
+                id="status" value={status}
                 onChange={({ target }) => setStatus(target.value)}
                 required
               >
                 <option value="">Update Status</option>
-                {statusList.map((status) => {
+                   {statusList.map((status) => {
                   let { id, value } = status;
                   return (
                     <option key={id} value={value}>

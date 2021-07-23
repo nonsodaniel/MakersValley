@@ -1,36 +1,77 @@
 import { useEffect, useState } from "react"
-import { connect, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
+import Draggable from "react-draggable";
 import * as actions from "../../store/actions/todoActions";
 import PropTypes from "prop-types";
 import TodoList from "./TodoList";
 import "./todos.scss";
 import loadingImg from "../assets/loading.gif";
-import networkImg from "../assets/no-connection.png";
 import TodoFormModal from "../utils/modal/TodoFormModal";
+import DraggableList from "react-draggable-lists";
+
+
 
 const Todos = (props) => {
-  let { getTodos } = props;
+  let { getTodos, clearEditTodo } = props;
   const [isOpen, setIsOpen] = useState(false)
+  const [deltaPosition, setDeltaPosition] = useState({deltaPosition: {
+    x: 0,
+    y: 0
+  }})
+  const [activeDrags, setActiveDrags] = useState( 0)
 
-  const openModal = () =>{
-    setIsOpen(true)
-  }
+    
+  const openModal = (action) => {
+    if (action === "add") {
+      clearEditTodo();
+    }
+    setIsOpen(true);
+  };
+  
   const closeModal = () =>{
     setIsOpen(false)
   }
+
 
   useEffect(() => {
     getTodos();
   }, [getTodos]);
 
+
+  function handleDrag(e, ui) {
+    const { x, y } = deltaPosition;
+    setDeltaPosition({
+      deltaPosition: {
+        x: x + ui.deltaX,
+        y: y + ui.deltaY
+      }
+    });
+  }
+
+
+ function onStart() {
+    this.setState({ activeDrags: ++activeDrags });
+  }
+
+  function onStop() {
+    this.setState({ activeDrags: --activeDrags });
+  }
+
+
+
+
+
+
+
+
+
   const isDataLoaded = props.pageData && props.pageData.length > 0;
-  let { errorMessage } = props;
   let select = useSelector((state) => state);
   const editData = select.todos && select.todos.editData
   return (
     <div className="todos-wrap" data-testid="todos-wrap">
       <div className="btn-wrap text-center">
-        <button className="btn btn-add" onClick={openModal}>
+        <button className="btn btn-add" onClick={() => openModal("add")}>
           Add Todo
         </button>
       </div>
@@ -40,29 +81,43 @@ const Todos = (props) => {
       )}
 
       <div className={isDataLoaded ? "todos" : "no-todos"}>
-        {!props.loading ? (
-          isDataLoaded ? (
-            props.pageData.map((todo) => {
-              return (
-                <TodoList
-                  key={Math.floor(Math.random() * Date.now())}
-                  todos={todo}
-                  openModal={openModal}
+       
+            {!props.loading ? (
+              isDataLoaded ? (
+                props.pageData.map((todo) => {
+                  return (
+                    <Draggable
+                    axis="x"
+                    handle=".handle"
+                    defaultPosition={{  x: 0, y: 0  }}
+                    position={null}
+                    grid={[25, 25]}
+                    scale={1}
+                    onStart={onStart}
+                    onDrag={handleDrag}
+                    onStop={onStop}
+                >
+                    <TodoList
+                      key={Math.floor(Math.random() * Date.now())}
+                      todos={todo}
+                      openModal={openModal}
+                    />
+                           </Draggable>
+                  );
+                })
+              ) : (
+                <p className="text-center">No Data Available!</p>
+              )
+            ) : (
+              <div className="text-center">
+                <img
+                  src={loadingImg}
+                  className="load_icon"
+                  alt="Loading animation"
                 />
-              );
-            })
-          ) : (
-            <p className="text-center">No Data Available!</p>
-          )
-        ) : (
-          <div className="text-center">
-            <img
-              src={loadingImg}
-              className="load_icon"
-              alt="Loading animation"
-            />
-          </div>
-        )}
+              </div>
+            )}
+  
       </div>
     </div>
   );
