@@ -46,9 +46,14 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
     let formdata = getFormData();
     if (todoId) {
       dispatch(actions.updateTodo({ ...todo, ...formdata }));
+      handleClose();
       return;
     }
     dispatch(actions.addTodo(formdata));
+    handleClose();
+  };
+  const handleClose = () => {
+    onClose();
   };
   // useEffect(() => {
   //   setTodo(editData);
@@ -63,7 +68,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
       >
         <div className="header">
           <span onClick={onClose} className="text-right pointer">
-            <i className="far fa-times-circle"></i>
+            <i className="far fa-times-circle close-modal"></i>
           </span>
           <h2 className="text-center">
             {todoId ? "Update Todo" : "Create New Todo"}
@@ -79,6 +84,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                 placeholder="Todo Title"
                 value={title}
                 onChange={({ target }) => setTitle(target.value)}
+                required={true}
               />
             </div>
             <div className="form-group">
@@ -86,9 +92,11 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                 className="form-control"
                 id="description"
                 rows="3"
-                placeholder="Type your Todo Description here..."
+                placeholder="Type your Todo Description here... Max character (150)"
                 value={description}
                 onChange={({ target }) => setDesc(target.value)}
+                maxlength="150"
+                required={true}
               ></textarea>
             </div>
             <div className="form-group group-1">
@@ -97,8 +105,9 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                   className="form-control"
                   id="priority"
                   onChange={({ target }) => setPriority(target.value)}
+                  required={true}
                 >
-                  <option defaultValue="All">Select Priority</option>
+                  <option value="">Select Priority</option>
                   {priorityList.map((prty) => {
                     let { id, value } = prty;
                     return (
@@ -114,8 +123,9 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                   className="form-control"
                   id="exampleFormControlSelect1"
                   onChange={({ target }) => setCategory(target.value)}
+                  required={true}
                 >
-                  <option defaultValue="All">Category</option>
+                  <option value="">Category</option>
                   {categorList.map((catgry) => {
                     let { id, value } = catgry;
                     return (

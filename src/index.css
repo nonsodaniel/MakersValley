@@ -53,7 +53,7 @@ input[type="text"] {
   display: block;
   width: 100%;
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
+  font-size: 13px;
   line-height: 1.5;
   color: #495057;
   background-color: #fff;
@@ -75,11 +75,11 @@ input[type="text"] {
 }
 
 /* Remove Zooming on Iphone */
-/* @media screen and (-webkit-min-device-pixel-ratio: 0) {
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
   select:focus,
   textarea:focus,
   input:focus,
   input:active {
     font-size: 13px;
   }
-} */
+}

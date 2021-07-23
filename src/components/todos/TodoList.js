@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/todoActions";
 
 const TodoList = ({ todos, openModal}) => {
-  const { id, title, description, category, priority, status } = todos;
+  const { id, title, description, category, priority, status , created} = todos;
   const dispatch = useDispatch();
 
   const deleteTodo = ({ target: { id } }) => {
@@ -24,15 +25,17 @@ const TodoList = ({ todos, openModal}) => {
     <div className="todo" key={id}>
       <div className="card todo-card">
         <div className="todo-details">
-          <div className="priority-date">
             <span className="priority">
               Priority: <b className="text">{priority}</b>{" "}
-            </span>
-            <span className="date">{new Date().toDateString()}</span>
-          </div>
+            </span><br />
+          <span className="date"><i class="far fa-clock"> </i>{ ` ` + new Date(created).toDateString()}, {new Date(created).toLocaleTimeString()}</span>
           <h3>{title}</h3>
-          <p>{description}</p>
-          {/* <p title={str}>{desc}</p> */}
+          
+         <p >
+          {  description}
+          </p>
+        
+         
           <div className="category-status">
             <span className="category">{category}</span>
             <span className={status}>{status}</span>

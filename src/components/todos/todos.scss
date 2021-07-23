@@ -20,23 +20,24 @@
     .todo-details {
       padding: 1rem;
       max-height: 16rem;
+
+      .date{
+        color: #6c757d;
+        font-weight: 500;
+      }
     }
-    .priority-date {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 1rem;
+  
       .priority .text{
         font-size: 13px;
         font-weight: 600;
         color: #7888fc;
       }
-    }
     .category-status {
       display: flex;
       border-top: 2px solid #e7e4e4;
       justify-content: space-between;
       padding-top: 1rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
       span {
         padding: 0.3rem 0.9rem;
         border-radius: 15px;
@@ -71,16 +72,17 @@
     h3 {
       font-weight: 600;
       color: #333447;
-      margin-bottom: 0.3rem;
+      margin: .5rem 0;
       font-size: 18px;
     }
     p {
-      font-weight: 300;
+      font-weight: 400;
       font-style: normal;
-      font-size: 13px;
+      font-size: 14px;
       line-height: 18px;
       margin-bottom: 0.8rem;
       color: #3f3e3e;
+      max-height: 3rem;
     }
     span {
       font-size: 12px;
@@ -111,6 +113,8 @@
   .btn-wrap{
     margin-bottom: 2rem;
   }
+
+
 
   @media (max-width: 768px) {
     .todos {
