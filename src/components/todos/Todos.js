@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import Draggable from "react-draggable";
 import * as actions from "../../store/actions/todoActions";
 import PropTypes from "prop-types";
@@ -7,7 +7,6 @@ import TodoList from "./TodoList";
 import "./todos.scss";
 import loadingImg from "../assets/loading.gif";
 import TodoFormModal from "../utils/modal/TodoFormModal";
-import DraggableList from "react-draggable-lists";
 
 
 
@@ -18,7 +17,6 @@ const Todos = (props) => {
     x: 0,
     y: 0
   }})
-  const [activeDrags, setActiveDrags] = useState( 0)
 
     
   const openModal = (action) => {
@@ -49,20 +47,11 @@ const Todos = (props) => {
   }
 
 
- function onStart() {
-    this.setState({ activeDrags: ++activeDrags });
+ function handleStart() {
   }
 
-  function onStop() {
-    this.setState({ activeDrags: --activeDrags });
+  function handleStop() {
   }
-
-
-
-
-
-
-
 
 
   const isDataLoaded = props.pageData && props.pageData.length > 0;
@@ -89,20 +78,20 @@ const Todos = (props) => {
                     <Draggable
                     axis="x"
                     handle=".handle"
-                    defaultPosition={{  x: 0, y: 0  }}
+                    defaultPosition={{ x: 0, y: 0 }}
                     position={null}
                     grid={[25, 25]}
                     scale={1}
-                    onStart={onStart}
+                    onStart={handleStart}
                     onDrag={handleDrag}
-                    onStop={onStop}
-                >
+                    onStop={handleStop}
+                  >
                     <TodoList
                       key={Math.floor(Math.random() * Date.now())}
                       todos={todo}
                       openModal={openModal}
                     />
-                           </Draggable>
+                    </Draggable>
                   );
                 })
               ) : (

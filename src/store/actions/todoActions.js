@@ -12,7 +12,6 @@ import {
   PREV_PAGE,
   SORT_PRIORITY,
   EDIT_TODO,
-  DELETE_TODO,
   CLEAR_EDIT_TODO,
 } from "./types";
 
