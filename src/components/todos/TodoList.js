@@ -1,31 +1,26 @@
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import * as actions from "../../store/actions/todoActions";
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, openModal}) => {
   const { id, title, description, category, priority, status } = todos;
   const dispatch = useDispatch();
 
   const deleteTodo = ({ target: { id } }) => {
-    dispatch(actions.handleDeleteTodo(id));
+    let isDelete = window.confirm("Delete this record?");
+    if(isDelete){
+      dispatch(actions.handleDeleteTodo(id));
+    }
   };
 
-  const str = `  Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
-  ipsum dolores quod, iste corporis rem, voluptatem impedit eius`;
-  // const desc =
-  //   str.length > 130
-  //     ? str +
-  //       (
-  //         <b>
-  //           <Link to="#" title={str}>
-  //             See more
-  //           </Link>
-  //         </b>
-  //       )
-  //     : str;
+  const editTodo = async ({ target: { id } }) =>{
+    dispatch(actions.handleEditTodo(id));
+    openModal()
+
+  }
 
   return (
+    <>
     <div className="todo" key={id}>
       <div className="card todo-card">
         <div className="todo-details">
@@ -40,21 +35,22 @@ const TodoList = ({ todos }) => {
           {/* <p title={str}>{desc}</p> */}
           <div className="category-status">
             <span className="category">{category}</span>
-            <span className="status">{status}</span>
+            <span className={status}>{status}</span>
           </div>
         </div>
         <div className="actions">
-          <span>
-            <i className="fas fa-edit edit"></i>
+          <span >
+            <i className="fas fa-edit edit" onClick={editTodo}  id={id}></i>
           </span>
-          <span onClick={deleteTodo} id={id}>
-            <i className="fas fa-trash-alt delete" id={id}></i>
+          <span >
+            <i className="fas fa-trash-alt delete" onClick={deleteTodo} id={id}></i>
           </span>
         </div>
       </div>
     </div>
+    </>
   );
-};;
+};
 
 TodoList.propTypes = {
   todos: PropTypes.shape({

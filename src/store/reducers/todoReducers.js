@@ -46,9 +46,9 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       };
     case DELETE_TODO:
       const { id } = actions.payload;
-      let isDelete = window.confirm("Delete this record?");
-      if (!isDelete) return null;
+      console.log(id, state.allTodos);
       let newData = state.allTodos.filter((data_) => data_.id !== id);
+      console.log(newData);
       localStorage.setItem("todos", JSON.stringify(newData));
       return {
         ...state,
@@ -59,10 +59,13 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
         data: newData,
         pageData: paginate(newData, 1, state.pageLength),
       };
-    // case EDIT_TODO:
-    //   const { id } = actions.payload;
-    //     let editData = profile.find(data => data.id === id)
-    //     props.openModal(editData)
+    case EDIT_TODO:
+      const { editId } = actions.payload;
+      let editData = state.allTodos.find((data) => data.id === editId);
+      return {
+        ...state,
+        editData,
+      };
     case TODO_FETCH_FAILED:
       return {
         ...state,

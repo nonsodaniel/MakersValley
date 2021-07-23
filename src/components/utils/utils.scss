@@ -1,0 +1,22 @@
+
+  @import '../container/variables.scss';
+  
+  .btn-add{
+    background-color: var(--primary-color);
+  }
+  .btn-update{
+    background-color: var(--info-color);
+  }
+
+  .pending{
+    background-color: var(--pending-bg);
+     color: var(--pending-color)
+  }
+  .completed{
+    background-color: var(--completed-bg);
+    color: var(--completed-color)
+  }
+  .cancel{
+    background-color: var(--cancel-bg);
+    color: var(--cancel-color)
+  }

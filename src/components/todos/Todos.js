@@ -1,23 +1,40 @@
-import { useEffect } from "react";
-import { connect } from "react-redux";
+import { useEffect, useState } from "react"
+import { connect, useSelector } from "react-redux";
 import * as actions from "../../store/actions/todoActions";
 import PropTypes from "prop-types";
 import TodoList from "./TodoList";
 import "./todos.scss";
 import loadingImg from "../assets/loading.gif";
 import networkImg from "../assets/no-connection.png";
-import AddTodo from "./AddTodo";
+import TodoFormModal from "../utils/modal/TodoFormModal";
 
 const Todos = (props) => {
   let { getTodos } = props;
+  const [isOpen, setIsOpen] = useState(false)
+
+  const openModal = () =>{
+    setIsOpen(true)
+  }
+  const closeModal = () =>{
+    setIsOpen(false)
+  }
+
   useEffect(() => {
     getTodos();
   }, [getTodos]);
+
   const isDataLoaded = props.pageData && props.pageData.length > 0;
   let { errorMessage } = props;
+  let select = useSelector((state) => state);
+  const editData = select.todos && select.todos.editData
   return (
     <div className="todos-wrap" data-testid="todos-wrap">
-      <AddTodo />
+      <div className="btn-wrap text-center">
+      <button className="btn btn-add" onClick={openModal}>
+          Add Todo
+        </button>
+      </div>
+      <TodoFormModal todo={editData}  isOpen={isOpen} onClose={closeModal}/>
       {isDataLoaded && (
         <h5 className="todo-header">{props && props.currentCategory} Todos</h5>
       )}
@@ -41,6 +58,7 @@ const Todos = (props) => {
                 <TodoList
                   key={Math.floor(Math.random() * Date.now())}
                   todos={todo}
+                  openModal ={openModal}
                 />
               );
             })

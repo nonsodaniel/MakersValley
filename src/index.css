@@ -1,4 +1,4 @@
-@import './components/container/variables.css';
+/* @import './components/container/variables.scss'; */
 
 :root {
   --small-text: 13px;
@@ -69,7 +69,6 @@ input[type="text"] {
   padding: 15px 40px;
   border-radius: 5px;
   font-weight: 500;
-  background-color: var(--primary-color);
   color: #fff;
   border: none;
   cursor: pointer;

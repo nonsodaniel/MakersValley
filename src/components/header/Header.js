@@ -97,9 +97,7 @@ const Header = (props) => {
                 onChange={sortDate}
                 data-testid="sort-date"
               >
-                {
-
-                }
+                {}
                 <option value="default">Default</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>

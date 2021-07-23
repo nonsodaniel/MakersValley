@@ -1,3 +1,5 @@
+import { uuid } from "../../components/utils/helpers";
+import { saveToLocalStorage } from "../localstorage";
 import {
   START_FETCH_TODO,
   SET_TODO_DATA,
@@ -18,6 +20,7 @@ export const getTodos = () => {
     try {
       dispatch({ type: START_FETCH_TODO });
       const response = JSON.parse(localStorage.getItem("todos"));
+
       let payload = {};
       if (response.length) {
         payload.todos = response;
@@ -35,15 +38,43 @@ export const getTodos = () => {
   };
 };
 
-export const handleEditTodo = (id) => {
+export const addTodo = (todo) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    todo.id = uuid();
+    todo.status = "pending";
+    todo.created = new Date().toISOString();
+    const todos = [todo, ...state.todos.allTodos];
+    saveToLocalStorage("todos", todos);
+    dispatch({
+      type: SET_TODO_DATA,
+      payload: { todos },
+    });
+  };
+};
+
+export const updateTodo = (todo) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const todos = [...state.todos.allTodos];
+    let todoToUpdate = todos.find(({ id }) => id === todo.id);
+    Object.assign(todoToUpdate, todo);
+    saveToLocalStorage("todos", todos);
+    dispatch({
+      type: SET_TODO_DATA,
+      payload: { todos },
+    });
+  };
+};
+
+export const handleEditTodo = (editId) => {
   return (dispatch) => {
     dispatch({
       type: EDIT_TODO,
-      payload: { id },
+      payload: { editId },
     });
-    getTodos();
   };
-}; 
+};
 
 export const handleDeleteTodo = (id) => {
   return (dispatch) => {
@@ -53,7 +84,7 @@ export const handleDeleteTodo = (id) => {
     });
     getTodos();
   };
-}; 
+};
 
 export const handleSearchTodo = (searchValue) => {
   return (dispatch) => {
@@ -80,34 +111,33 @@ export const handleSortPriority = (activePriority) => {
   };
 };
 
-  export const handleSortAlphabet = (activeOrder) => {
-    return (dispatch) => {
-      dispatch({
-        type: SORT_ALPHABET,
-        payload: { activeOrder },
-      });
-    };
+export const handleSortAlphabet = (activeOrder) => {
+  return (dispatch) => {
+    dispatch({
+      type: SORT_ALPHABET,
+      payload: { activeOrder },
+    });
   };
-  export const handleSortDate = (activeDate) => {
-    return (dispatch) => {
-      dispatch({
-        type: SORT_DATE,
-        payload: { activeDate },
-      });
-    };
+};
+export const handleSortDate = (activeDate) => {
+  return (dispatch) => {
+    dispatch({
+      type: SORT_DATE,
+      payload: { activeDate },
+    });
   };
-  export const handlePrevBtn = () => {
-    return (dispatch) => {
-      dispatch({
-        type: PREV_PAGE,
-      });
-    };
+};
+export const handlePrevBtn = () => {
+  return (dispatch) => {
+    dispatch({
+      type: PREV_PAGE,
+    });
   };
-  export const handleNextBtn = () => {
-    return (dispatch) => {
-      dispatch({
-        type: NEXT_PAGE,
-      });
-    };
+};
+export const handleNextBtn = () => {
+  return (dispatch) => {
+    dispatch({
+      type: NEXT_PAGE,
+    });
   };
-  
+};
