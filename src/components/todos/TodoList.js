@@ -44,10 +44,10 @@ const TodoList = ({ todos, openModal}) => {
             </div>
           </div>
           <div className="actions">
-            <span>
+            <span className="edit-wrap">
               <i className="fas fa-edit edit" onClick={editTodo} id={id}></i>
             </span>
-            <span>
+            <span className="delete-wrap">
               <i
                 className="fas fa-trash-alt delete"
                 onClick={deleteTodo}

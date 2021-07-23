@@ -120,10 +120,14 @@
   @media (max-width: 768px) {
     .todos {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
+    
     .load_icon {
       width: 100%;
+    }
+    .edit, .delete{
+      font-size: 20px;
     }
   }
   @media (max-width: 560px) {

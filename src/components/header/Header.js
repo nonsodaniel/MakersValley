@@ -55,7 +55,7 @@ const Header = (props) => {
                 onChange={sortCategory}
                 data-testid="sort-category"
               >
-                <option value="All"> Category</option>
+                <option value="All"> Select Category</option>
                 {categorList.map((catgry) => {
                   let { id, value } = catgry;
                   return (
@@ -98,7 +98,7 @@ const Header = (props) => {
                 data-testid="sort-date"
               >
                 {}
-                <option value="default">Default</option>
+                <option value="default">Select Date order</option>
                 <option value="asc">Ascending</option>
                 <option value="desc">Descending</option>
               </select>
