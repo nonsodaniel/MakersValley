@@ -13,3 +13,8 @@ export const priorityList = [
   { id: 3, value: "Urgent" },
   { id: 4, value: "Take your Time" },
 ];
+export const statusList = [
+  { id: 1, value: "Pending" },
+  { id: 2, value: "Completed" },
+  { id: 3, value: "Cancel" },
+];

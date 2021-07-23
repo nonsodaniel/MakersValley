@@ -30,35 +30,24 @@ const Todos = (props) => {
   return (
     <div className="todos-wrap" data-testid="todos-wrap">
       <div className="btn-wrap text-center">
-      <button className="btn btn-add" onClick={openModal}>
+        <button className="btn btn-add" onClick={openModal}>
           Add Todo
         </button>
       </div>
-      <TodoFormModal todo={editData}  isOpen={isOpen} onClose={closeModal}/>
+      <TodoFormModal todo={editData} isOpen={isOpen} onClose={closeModal} />
       {isDataLoaded && (
         <h5 className="todo-header">{props && props.currentCategory} Todos</h5>
       )}
 
       <div className={isDataLoaded ? "todos" : "no-todos"}>
-        {errorMessage === "Network Error" ? (
-          <div className="text-center network-error">
-            <img src={networkImg} alt="Loading animation" height="150" />
-            <p>Unable to connect to the Internet</p>
-            <button
-              className="btn-network__error pointer"
-              onClick={() => window.location.reload()}
-            >
-              Refresh
-            </button>
-          </div>
-        ) : !props.loading ? (
+        {!props.loading ? (
           isDataLoaded ? (
             props.pageData.map((todo) => {
               return (
                 <TodoList
                   key={Math.floor(Math.random() * Date.now())}
                   todos={todo}
-                  openModal ={openModal}
+                  openModal={openModal}
                 />
               );
             })

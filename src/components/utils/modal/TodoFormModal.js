@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as actions from "../../../store/actions/todoActions";
 import Modal from "react-modal";
 import { useDispatch } from "react-redux";
-import { categorList, priorityList } from "./db";
+import { categorList, priorityList, statusList } from "./db";
 import "./modal.scss";
 
 const customStyles = {
@@ -30,6 +30,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
   const [description, setDesc] = useState(todo.description || "");
   const [priority, setPriority] = useState(todo.priority || "");
   const [category, setCategory] = useState(todo.category || "");
+  const [status, setStatus] = useState(todo.category || "");
   let todoId = todo.id;
 
   const getFormData = () => {
@@ -38,6 +39,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
       description,
       priority,
       category,
+      status,
     };
   };
 
@@ -95,7 +97,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                 placeholder="Type your Todo Description here... Max character (150)"
                 value={description}
                 onChange={({ target }) => setDesc(target.value)}
-                maxlength="150"
+                maxLength="150"
                 required={true}
               ></textarea>
             </div>
@@ -121,7 +123,7 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
               <div className="category">
                 <select
                   className="form-control"
-                  id="exampleFormControlSelect1"
+                  id="category"
                   onChange={({ target }) => setCategory(target.value)}
                   required={true}
                 >
@@ -137,6 +139,25 @@ const TodoFormModal = ({ todo = {}, isOpen, onClose }) => {
                 </select>
               </div>
             </div>
+
+            {todoId && (
+              <select
+                className="form-control status-select"
+                id="status"
+                onChange={({ target }) => setStatus(target.value)}
+                required
+              >
+                <option value="">Update Status</option>
+                {statusList.map((status) => {
+                  let { id, value } = status;
+                  return (
+                    <option key={id} value={value}>
+                      {value}
+                    </option>
+                  );
+                })}
+              </select>
+            )}
 
             <div className="btn-wrap">
               <button

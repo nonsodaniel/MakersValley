@@ -22,35 +22,41 @@ const TodoList = ({ todos, openModal}) => {
 
   return (
     <>
-    <div className="todo" key={id}>
-      <div className="card todo-card">
-        <div className="todo-details">
+      <div className="todo" key={id}>
+        <div className="card todo-card">
+          <div className="todo-details">
             <span className="priority">
               Priority: <b className="text">{priority}</b>{" "}
-            </span><br />
-          <span className="date"><i class="far fa-clock"> </i>{ ` ` + new Date(created).toDateString()}, {new Date(created).toLocaleTimeString()}</span>
-          <h3>{title}</h3>
-          
-         <p >
-          {  description}
-          </p>
-        
-         
-          <div className="category-status">
-            <span className="category">{category}</span>
-            <span className={status}>{status}</span>
+            </span>
+            <br />
+            <span className="date">
+              <i className="far fa-clock"> </i>
+              {` ` + new Date(created).toDateString()},{" "}
+              {new Date(created).toLocaleTimeString()}
+            </span>
+            <h3>{title}</h3>
+
+            <p>{description}</p>
+
+            <div className="category-status">
+              <span className="category">{category}</span>
+              <span className={status}>{status}</span>
+            </div>
+          </div>
+          <div className="actions">
+            <span>
+              <i className="fas fa-edit edit" onClick={editTodo} id={id}></i>
+            </span>
+            <span>
+              <i
+                className="fas fa-trash-alt delete"
+                onClick={deleteTodo}
+                id={id}
+              ></i>
+            </span>
           </div>
         </div>
-        <div className="actions">
-          <span >
-            <i className="fas fa-edit edit" onClick={editTodo}  id={id}></i>
-          </span>
-          <span >
-            <i className="fas fa-trash-alt delete" onClick={deleteTodo} id={id}></i>
-          </span>
-        </div>
       </div>
-    </div>
     </>
   );
 };
