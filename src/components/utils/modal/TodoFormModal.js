@@ -108,6 +108,7 @@ const TodoFormModal = ({ todo, isOpen, onClose }) => {
                 id="title"
                 placeholder="Todo Title"
                 value={title}
+                maxLength="35"
                 onChange={({ target }) => setTitle(target.value)}
                 required={true}
               />
