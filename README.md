@@ -2,9 +2,9 @@
 
 # Live Link
 
-[My Preview link:](https://makers-valley.vercel.app/).
+[My Preview link](https://makers-valley.vercel.app/).
 
-[Github Link:](https://github.com/nonsodaniel/MakersValley).
+[Github Link](https://github.com/nonsodaniel/mv_frontend_challenge_2).
 
 
 
