@@ -83,7 +83,11 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
       let searchData =
         searchValue === ""
           ? state.allTodos
-          : state.allTodos.filter(({ title }) => title.includes(searchValue));
+          : state.allTodos.filter(
+              ({ title, description }) =>
+                title.toLowerCase().includes(searchValue.toLowerCase()) ||
+                description.toLowerCase().includes(searchValue.toLowerCase())
+            );
       return {
         ...state,
         search: true,
