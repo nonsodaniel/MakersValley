@@ -33,7 +33,7 @@ const Header = (props) => {
               className="form-tag search-textbox"
               data-testid="search-textfield"
               aria-label="search-textfield"
-              placeholder="Search Todo"
+              placeholder="Search Todo (Title and Description)"
               value={props.searchValue}
               onChange={handleSearch}
             />

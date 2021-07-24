@@ -68,18 +68,6 @@ const TodoFormModal = ({ todo, isOpen, onClose }) => {
     onClose();
   };
 
-  // const setEditData = (todo) => {
-  //   if (todo) {
-  //     setTitle(todo.title || "");
-  //     setDesc(todo.description || "");
-  //     setPriority(todo.priority || "");
-  //     setCategory(todo.category || "");
-  //     setStatus(todo.status || "");
-  //   } else {
-  //     resetForm();
-  //   }
-  // };
-
   useEffect(() => {
     const setEditData = (todo) => {
       if (todo) {

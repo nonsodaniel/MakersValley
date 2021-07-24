@@ -1,7 +1,8 @@
+@import '../container/variables.scss';
+
 .header-wrap{
-    display: flex;
-    justify-content: space-between;
-    padding: 4rem 0;
+@include spaceBetween;
+    padding: 3rem 0;
 }
 .search-input{
     width: 20rem;
@@ -15,7 +16,7 @@
 }
 .search-textbox{
     width: inherit;
-    font-size: var(--small-text);
+    font-size: var(--form-text);
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 29px;
@@ -26,7 +27,7 @@ select{
     width: 11rem;
     height: 40px;
     padding: .375rem 2.25rem .375rem 1.40rem;
-    font-size: 1rem;
+    font-size: var(--form-text);
     font-weight: 400;
     line-height: 1.5;
     color: #212529;

@@ -1,6 +1,7 @@
+@import '../container/variables.scss';
+
 .pagination-wrap{
-    display: flex;
-    justify-content: space-between;
+    @include spaceBetween;
 }
 .page-btn{
     font-weight: 500;

@@ -6,8 +6,6 @@ import { Provider } from "react-redux";
 
 afterEach(cleanup);
 
-
-
 render(
   <Provider store={store}>
     <Header />
@@ -29,10 +27,10 @@ describe("Completely render <Header />", () => {
   test("render the Header component without crashing", () => {
     expect(screen.getAllByTestId("header")).toHaveLength(1);
     expect(screen.getAllByTestId("search-textfield")).toHaveLength(1);
-    expect(screen.getByPlaceholderText("Search todos"));
-    expect(screen.getByDisplayValue("All"));
+    expect(screen.getByPlaceholderText("Search Todo (Title and Description)"));
     expect(screen.getAllByTestId("sort-category")).toHaveLength(1);
     expect(screen.getAllByTestId("sort-order")).toHaveLength(1);
+    expect(screen.getAllByTestId("sort-date")).toHaveLength(1);
   });
   test("It should allow users type their search texts", () => {
     const { input } = setup();

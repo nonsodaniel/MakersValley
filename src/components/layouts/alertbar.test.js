@@ -16,3 +16,4 @@ describe("Completely render <Footer />", () => {
     expect(screen.getAllByTestId("alert-text")).toHaveLength(1);
   });
 });
+

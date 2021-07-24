@@ -27,8 +27,8 @@ const AlertBar = () => {
         </svg>
       </span>
       <p className="alert-text" data-testid="alert-text">
-        Tada! Get started with a free Todo App. Can’t find what you are looking
-        for? Search from the 1000+ available todos
+        Hoooraaay! You can now create, view, update and delete your Todo. Daily
+        routine just got easier! 😃
       </p>
     </div>
   );

@@ -1,5 +1,6 @@
 @import '../../index.css';
 
+
 .alert-danger {
     color: #252525;
     background-color: #FFF4EA;
@@ -8,7 +9,7 @@
 .alert {
     position: relative;
     padding: .75rem;
-    margin-bottom: var(--margin-bottom);
+    margin-bottom: 3rem;
     border: 1px solid transparent;
     border-radius: .25rem;
     font-size: 12px;
@@ -22,7 +23,7 @@
     margin-right: 15px;
 }
 .footer{
-    margin-bottom: var(--margin-bottom);
+    margin-bottom: 3rem;
 }
 @media (max-width: 1024px){
     .alert-text {
@@ -31,7 +32,7 @@
     }
     .todos {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

@@ -53,8 +53,12 @@ const Todos = (props) => {
 
   return (
     <div className="todos-wrap" data-testid="todos-wrap">
-      <div className="btn-wrap text-center">
-        <button className="btn btn-add" onClick={() => openModal("add")}>
+      <div className="btn-wrap text-center" data-testid="btn-wrap">
+        <button
+          className="btn btn-add"
+          onClick={() => openModal("add")}
+          data-testid="btn-add"
+        >
           Add Todo
         </button>
       </div>
@@ -62,33 +66,32 @@ const Todos = (props) => {
       {isDataLoaded && (
         <h5 className="todo-header">{props && props.currentCategory} Todos</h5>
       )}
-      
+
       <GridContextProvider onChange={onChange}>
         <GridDropZone
           className={` ${isDataLoaded ? "todos" : "no-todos"}`}
+          data-testid="list-wrap"
           id="left"
           boxesPerRow={4}
           rowHeight={70}
         >
-            {
-              isDataLoaded ? (
-                props.pageData.map((todo) => {
-                  return (
-                    <GridItem key={todo.id} className="todo">
-                    <TodoList
-                      key={Math.floor(Math.random() * Date.now())}
-                      todos={todo}
-                      openModal={openModal}
-                    />
-                    </GridItem>
-                  );
-                })
-              ) : (
-                <p className="text-center">No Data Available!</p>
-              )
-           }
-      </GridDropZone>
-    </GridContextProvider>
+          {isDataLoaded ? (
+            props.pageData.map((todo) => {
+              return (
+                <GridItem key={todo.id} className="todo">
+                  <TodoList
+                    key={Math.floor(Math.random() * Date.now())}
+                    todos={todo}
+                    openModal={openModal}
+                  />
+                </GridItem>
+              );
+            })
+          ) : (
+            <p className="text-center">No Data Available!</p>
+          )}
+        </GridDropZone>
+      </GridContextProvider>
     </div>
   );
 };
