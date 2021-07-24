@@ -11,6 +11,7 @@ import {
   EDIT_TODO,
   DELETE_TODO,
   CLEAR_EDIT_TODO,
+  DRAG_DROP,
 } from "../actions/types";
 
 const INTIAL_STATE = {
@@ -48,7 +49,6 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
     case DELETE_TODO:
       const { id } = actions.payload;
       let newData = state.allTodos.filter((data_) => data_.id !== id);
-      console.log(newData);
       localStorage.setItem("todos", JSON.stringify(newData));
       return {
         ...state,
@@ -153,6 +153,12 @@ export  const reducer = (state = INTIAL_STATE, actions) => {
         data: sortDateData,
         activeOrder: activeDate,
         pageData: paginate(sortDateData, 1, state.pageLength),
+      };
+
+    case DRAG_DROP:
+      return {
+        ...state,
+        pageData: [...actions.payload],
       };
 
     case PREV_PAGE:

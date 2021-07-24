@@ -13,6 +13,7 @@ import {
   SORT_PRIORITY,
   EDIT_TODO,
   CLEAR_EDIT_TODO,
+  DRAG_DROP,
 } from "./types";
 
 export const getTodos = () => {
@@ -149,6 +150,16 @@ export const handleNextBtn = () => {
   return (dispatch) => {
     dispatch({
       type: NEXT_PAGE,
+    });
+  };
+};
+
+
+export const dragDrop = (todos) => {
+  return (dispatch) => {
+    dispatch({
+      type: DRAG_DROP,
+      payload: todos,
     });
   };
 };

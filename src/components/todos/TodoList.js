@@ -21,7 +21,7 @@ const TodoList = ({ todos, openModal}) => {
 
   return (
     <>
-      <div className="todo" key={id}>
+   
         <div className="card todo-card">
           <div className="todo-details">
             <span className="priority">
@@ -55,7 +55,6 @@ const TodoList = ({ todos, openModal}) => {
             </span>
           </div>
         </div>
-      </div>
     </>
   );
 };

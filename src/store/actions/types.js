@@ -11,6 +11,12 @@ export const SORT_PRIORITY = "SORT_PRIORITY";
 export const DELETE_TODO = "DELETE_TODO";
 export const EDIT_TODO = "EDIT_TODO";
 export const CLEAR_EDIT_TODO = "CLEAR_EDIT_TODO";
+export const DRAG_DROP = "DRAG_DROP";
+
+
+
+
+
 
 
 

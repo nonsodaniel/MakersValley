@@ -69,12 +69,4 @@ input[type="text"] {
   cursor: pointer;
 }
 
-/* Remove Zooming on Iphone */
-@media screen and (-webkit-min-device-pixel-ratio: 0) {
-  select:focus,
-  textarea:focus,
-  input:focus,
-  input:active {
-    font-size: 13px;
-  }
-}
+

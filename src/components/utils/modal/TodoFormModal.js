@@ -68,19 +68,30 @@ const TodoFormModal = ({ todo, isOpen, onClose }) => {
     onClose();
   };
 
-  const setEditData = (todo) => {
-    if (todo) {
-      setTitle(todo.title || "");
-      setDesc(todo.description || "");
-      setPriority(todo.priority || "");
-      setCategory(todo.category || "");
-      setStatus(todo.status || "");
-    } else {
-      resetForm();
-    }
-  };
+  // const setEditData = (todo) => {
+  //   if (todo) {
+  //     setTitle(todo.title || "");
+  //     setDesc(todo.description || "");
+  //     setPriority(todo.priority || "");
+  //     setCategory(todo.category || "");
+  //     setStatus(todo.status || "");
+  //   } else {
+  //     resetForm();
+  //   }
+  // };
 
   useEffect(() => {
+    const setEditData = (todo) => {
+      if (todo) {
+        setTitle(todo.title || "");
+        setDesc(todo.description || "");
+        setPriority(todo.priority || "");
+        setCategory(todo.category || "");
+        setStatus(todo.status || "");
+      } else {
+        resetForm();
+      }
+    };
     setEditData(todo);
   }, [todo, dispatch]);
 
@@ -169,12 +180,13 @@ const TodoFormModal = ({ todo, isOpen, onClose }) => {
             {todoId && (
               <select
                 className="form-control status-select"
-                id="status" value={status}
+                id="status"
+                value={status}
                 onChange={({ target }) => setStatus(target.value)}
                 required
               >
                 <option value="">Update Status</option>
-                   {statusList.map((status) => {
+                {statusList.map((status) => {
                   let { id, value } = status;
                   return (
                     <option key={id} value={value}>

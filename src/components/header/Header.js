@@ -15,7 +15,6 @@ const Header = (props) => {
   };
   const sortCategory = ({ target }) => {
     dispatch(actions.handleSortCategory(target.value));
-    console.log(select);
   };
   const sortPriority = ({ target }) => {
     dispatch(actions.handleSortPriority(target.value));
